@@ -1,0 +1,37 @@
+void main() {
+  final myFuture = Future((){       //uncompleted
+    print("Creating the future");
+    return 12;
+  }).then((value){                 //complted with data
+    print (value);
+  }).catchError((error){           //completed with error;
+    print("error $error");
+  });
+  
+  print('main() done');
+  
+  //print(myFuture);
+  
+  getOrder().then((value){        //completed with data;
+    print("You Ordered : $value");
+  }).catchError((error){          //completed with error;
+    print("error $error");
+  }).whenComplete((){
+    print ("Thank you");
+  });
+  
+  print("Getting Your Order....");
+  
+}
+
+
+Future<String> getOrder(){
+  return Future.delayed(Duration(seconds: 3), (){
+    var isStockAvailable = true;  //Bisa Isi True or false untuk output coffe boba
+    if(isStockAvailable){
+      return "Coffee Boba";
+    }else{
+      throw "Out Of Stock";
+    }
+  });
+}
